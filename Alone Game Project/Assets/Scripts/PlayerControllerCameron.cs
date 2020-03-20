@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerCameron : MonoBehaviour
 {
     [HideInInspector]
     Animator _playerAnim;
-    public static PlayerController instance;
+    public static PlayerControllerCameron instance;
 
     bool running = false;
     [HideInInspector]

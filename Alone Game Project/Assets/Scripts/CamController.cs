@@ -31,7 +31,7 @@ public class CamController : MonoBehaviour
         transform.GetChild (0).Rotate (-v, 0, 0);
 
         // Follow the player
-        transform.position = Vector3.Lerp (transform.position, PlayerController.instance.transform.position, Time.deltaTime * moveSpeed);
+        transform.position = Vector3.Lerp (transform.position, PlayerControllerCameron.instance.transform.position, Time.deltaTime * moveSpeed);
     
     }
 }
