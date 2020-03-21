@@ -7,7 +7,7 @@ public class Item : MonoBehaviour {
     public string type;
     public string description;
 
-    public Texture2D icon;
+    public Sprite icon;
 
     public bool pickedUp;
 }

@@ -147,21 +147,21 @@ public class PlayerControllerCameron : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit (Collider other)
-    {
-        if (other.CompareTag ("TowerGrid"))
-        {
-            GetComponent<Rigidbody> ().useGravity = false;
-        }
-    }
+    // private void OnTriggerExit (Collider other)
+    // {
+    //     if (other.CompareTag ("TowerGrid"))
+    //     {
+    //         GetComponent<Rigidbody> ().useGravity = false;
+    //     }
+    // }
 
-    private void OnTriggerEnter (Collider other)
-    {
-        if (other.CompareTag ("TowerGrid"))
-        {
-            GetComponent<Rigidbody> ().useGravity = true;
-        }
-    }
+    // private void OnTriggerEnter (Collider other)
+    // {
+    //     if (other.CompareTag ("TowerGrid"))
+    //     {
+    //         GetComponent<Rigidbody> ().useGravity = true;
+    //     }
+    // }
     private void OnCollisionEnter (Collision other)
     {
         if (other.collider.CompareTag ("platform"))

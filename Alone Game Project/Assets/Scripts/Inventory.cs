@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour {
         }
     }
 
-    void AddItem (GameObject itemObject, int itemId, string itemtype, string itemDescription, Texture2D itemIcon) {
+    void AddItem (GameObject itemObject, int itemId, string itemtype, string itemDescription, Sprite itemIcon) {
         for (int i = 0; i < allSlots; i++) {
             if (slot[i].GetComponent<Slot> ().empty) {
                 //add item to slot
@@ -63,8 +63,10 @@ public class Inventory : MonoBehaviour {
                 itemObject.transform.parent = slot[i].transform;
                 itemObject.SetActive (false);
 
+                slot[i].GetComponent<Slot> ().UpdateSlot();
                 slot[i].GetComponent<Slot> ().empty = false;
             }
+            return;
         }
     }
 }
