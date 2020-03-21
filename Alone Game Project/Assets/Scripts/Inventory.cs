@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
-    // ENDED VIDEO AT 11:20
+    //MUST BE SET ACTIVE OR ELSE IT WILL SHOW A ERROR.
     [SerializeField] bool _inventoryEnabled;
     public GameObject inventory;
 
@@ -16,6 +16,8 @@ public class Inventory : MonoBehaviour {
     public GameObject slotHolder;
 
     public void Start () {
+        
+        
         allSlots = 40;
         slot = new GameObject[allSlots];
 
