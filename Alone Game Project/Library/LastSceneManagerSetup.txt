@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/SampleScene.unity
+- path: C:/Users/User-pc/Desktop/Character Controller 2020/Axe Throw project/GodofWar-AxeThrow-master/Assets/Scenes/SampleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

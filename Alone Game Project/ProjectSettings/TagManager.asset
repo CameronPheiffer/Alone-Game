@@ -6,6 +6,7 @@ TagManager:
   tags:
   - platform
   - item
+  - WeaponManager
   layers:
   - Default
   - TransparentFX

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour , IPointerClickHandler
 {
     public GameObject item;
 
@@ -13,6 +14,10 @@ public class Slot : MonoBehaviour
     public int Id;
     public string type;
     public string description;
+    
+    public void OnPointerClick(PointerEventData pointerEventData){
+        UseItem();
+    }
 
     private void Start()
     {
@@ -22,5 +27,10 @@ public class Slot : MonoBehaviour
     public void UpdateSlot()
     {
         slotIconGO.GetComponent<Image>().sprite = _icon;
+    }
+
+    public void UseItem()
+    {
+        item.GetComponent<Item>().ItemUsage();
     }
 }

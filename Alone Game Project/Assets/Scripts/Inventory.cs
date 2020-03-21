@@ -16,8 +16,7 @@ public class Inventory : MonoBehaviour {
     public GameObject slotHolder;
 
     public void Start () {
-        
-        
+
         allSlots = 40;
         slot = new GameObject[allSlots];
 
@@ -65,7 +64,7 @@ public class Inventory : MonoBehaviour {
                 itemObject.transform.parent = slot[i].transform;
                 itemObject.SetActive (false);
 
-                slot[i].GetComponent<Slot> ().UpdateSlot();
+                slot[i].GetComponent<Slot> ().UpdateSlot ();
                 slot[i].GetComponent<Slot> ().empty = false;
             }
             return;
