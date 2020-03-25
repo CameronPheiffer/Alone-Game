@@ -17,6 +17,7 @@ public class Slot : MonoBehaviour , IPointerClickHandler
     
     public void OnPointerClick(PointerEventData pointerEventData){
         UseItem();
+        Debug.Log("UseItem");
     }
 
     private void Start()
@@ -32,5 +33,7 @@ public class Slot : MonoBehaviour , IPointerClickHandler
     public void UseItem()
     {
         item.GetComponent<Item>().ItemUsage();
+        Debug.Log("item" + item);
+    // Debug.Log("useitem" + (item.GetComponent<Item>().ItemUsage());
     }
 }

@@ -96,7 +96,7 @@ public class PlayerControllerCameron : MonoBehaviour
                 onGround = true;
                 _playerAnim.SetBool ("Falling", false);
                 Landing ();
-                Debug.Log ("Rootmotion On");
+                // Debug.Log ("Rootmotion On");
 
             }
         }

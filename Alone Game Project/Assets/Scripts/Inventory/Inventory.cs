@@ -11,13 +11,19 @@ public class Inventory : MonoBehaviour {
     private int allSlots;
     private int enabledSlots;
 
+    private Canvas _Canvas;
+
     private GameObject[] slot;
 
     public GameObject slotHolder;
 
+    private void Awake () {
+        _Canvas = inventory.GetComponent<Canvas> ();
+    }
+
     public void Start () {
 
-        allSlots = 40;
+        allSlots = slotHolder.transform.childCount;
         slot = new GameObject[allSlots];
 
         for (int i = 0; i < allSlots; i++) {
@@ -30,18 +36,29 @@ public class Inventory : MonoBehaviour {
     }
 
     public void Update () {
-        if (Input.GetKeyDown (KeyCode.I))
+        // OPEN AND CLOSING OF INVENTORY:
+        if (Input.GetKeyDown (KeyCode.I)) {
             _inventoryEnabled = !_inventoryEnabled;
+            _Canvas.enabled = _inventoryEnabled;
 
-        if (_inventoryEnabled == true) {
-            inventory.SetActive (true);
-        } else {
-            inventory.SetActive (false);
+            Cursor.visible = _inventoryEnabled;
+            
+            if (_inventoryEnabled)
+            {
+               Cursor.lockState = CursorLockMode.None; 
+            }
+            else{
+                 Cursor.lockState = CursorLockMode.Locked; 
+            }
+            
+
         }
+
     }
 
     private void OnTriggerEnter (Collider other) {
         if (other.tag == "item") {
+            // PICK UP OBJECTS TAGGED ITEMS
             GameObject itemPickedUp = other.gameObject;
             Item item = itemPickedUp.GetComponent<Item> ();
 
@@ -52,7 +69,7 @@ public class Inventory : MonoBehaviour {
     void AddItem (GameObject itemObject, int itemId, string itemtype, string itemDescription, Sprite itemIcon) {
         for (int i = 0; i < allSlots; i++) {
             if (slot[i].GetComponent<Slot> ().empty) {
-                //add item to slot
+                //ADDS ITEM TO SLOT
                 itemObject.GetComponent<Item> ().pickedUp = true;
 
                 slot[i].GetComponent<Slot> ().item = itemObject;
