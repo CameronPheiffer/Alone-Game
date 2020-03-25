@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerCameron : MonoBehaviour
-{
+public class PlayerControllerCameron : MonoBehaviour {
+
     [HideInInspector]
     Animator _playerAnim;
-    public static PlayerControllerCameron instance;
 
+    public static PlayerControllerCameron instance;
+    
     bool running = false;
     [HideInInspector]
     public Rigidbody _rb;
@@ -15,70 +16,61 @@ public class PlayerControllerCameron : MonoBehaviour
     // Jumping
     bool onGround = true;
     bool canDoubleJump = false;
-
-    void Start ()
-    {
+    public bool basicAttack = true;
+    void Start () {
         instance = this;
         _rb = GetComponent<Rigidbody> ();
         _playerAnim = GetComponent<Animator> ();
     }
 
-    void TakeOff ()
-    {
+    void TakeOff () {
         GetComponent<Animator> ().applyRootMotion = false;
     }
-    void Landing ()
-    {
+    void Landing () {
         GetComponent<Animator> ().applyRootMotion = true;
     }
 
-    void Update ()
-    {
+    void Update () {
         // Walking
-        if (Input.GetAxis ("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0)
-        {
+        if (Input.GetAxis ("Horizontal") != 0 || Input.GetAxis ("Vertical") != 0) {
             _playerAnim.SetFloat ("Z", Input.GetAxis ("Vertical"));
             _playerAnim.SetFloat ("X", Input.GetAxis ("Horizontal"));
             transform.rotation = Quaternion.Lerp (transform.rotation, CamController.instance.transform.rotation, Time.deltaTime * CamController.instance.rotateSpeed);
-        }
-        else
-        {
+        } else {
             _playerAnim.SetFloat ("Z", 0);
             _playerAnim.SetFloat ("X", 0);
         }
 
-        if (Input.GetAxisRaw ("Horizontal") != 0 || Input.GetAxisRaw ("Vertical") != 0)
-        {
+        if (Input.GetAxisRaw ("Horizontal") != 0 || Input.GetAxisRaw ("Vertical") != 0) {
             _playerAnim.SetBool ("Moving", true);
 
-        }
-        else
-        {
+        } else {
             _playerAnim.SetBool ("Moving", false);
         }
 
+        if (Input.GetMouseButtonDown (0) && basicAttack == true) {
+            _playerAnim.SetTrigger ("BasicAttack");
+              transform.rotation = Quaternion.Lerp (transform.rotation, CamController.instance.transform.rotation, Time.deltaTime * CamController.instance.rotateSpeed);
+        }
+
         // Running
-        if (Input.GetKeyDown ("left shift"))
-        {
+        if (Input.GetKeyDown ("left shift")) {
             running = true;
             Debug.Log ("Shift Down");
         }
-        if (Input.GetKeyUp ("left shift"))
-        {
+        if (Input.GetKeyUp ("left shift")) {
             running = false;
             _playerAnim.SetFloat ("Z", Input.GetAxis ("Vertical") * 1);
             _playerAnim.SetFloat ("X", Input.GetAxis ("Horizontal") * 1);
             Debug.Log ("Shift Up");
         }
 
-        if (running == true)
-        {
+        if (running == true) {
             _playerAnim.SetFloat ("Z", Input.GetAxis ("Vertical") * 2);
             _playerAnim.SetFloat ("X", Input.GetAxis ("Horizontal") * 2);
             Debug.Log ("Running!");
 
-            if (Input.GetButtonDown ("Jump"))
-            {
+            if (Input.GetButtonDown ("Jump")) {
                 _playerAnim.SetTrigger ("RunningJump");
                 Debug.Log ("RunJumpCalled");
             }
@@ -88,10 +80,8 @@ public class PlayerControllerCameron : MonoBehaviour
         RaycastHit hit;
         Vector3 physicsCenter = this.transform.position + this.GetComponent<CapsuleCollider> ().center;
 
-        if (Physics.Raycast (physicsCenter, Vector3.down, out hit, 2f))
-        {
-            if (hit.transform.gameObject.tag != "Player")
-            {
+        if (Physics.Raycast (physicsCenter, Vector3.down, out hit, 2f)) {
+            if (hit.transform.gameObject.tag != "Player") {
 
                 onGround = true;
                 _playerAnim.SetBool ("Falling", false);
@@ -99,9 +89,7 @@ public class PlayerControllerCameron : MonoBehaviour
                 // Debug.Log ("Rootmotion On");
 
             }
-        }
-        else
-        {
+        } else {
             _playerAnim.SetBool ("Falling", true);
             onGround = false;
             // TakeOff ();
@@ -109,16 +97,12 @@ public class PlayerControllerCameron : MonoBehaviour
 
         }
 
-        if (!running)
-        {
-            if (Input.GetKeyDown ("space") && !onGround && canDoubleJump)
-            {
+        if (!running) {
+            if (Input.GetKeyDown ("space") && !onGround && canDoubleJump) {
                 this.GetComponent<Rigidbody> ().AddForce (Vector3.up * 10);
                 Landing ();
                 canDoubleJump = false;
-            }
-            else if (Input.GetKeyDown ("space") && onGround)
-            {
+            } else if (Input.GetKeyDown ("space") && onGround) {
                 _playerAnim.SetTrigger ("JumpUp");
                 this.GetComponent<Rigidbody> ().AddForce (Vector3.up * 20);
                 Landing ();
@@ -126,25 +110,22 @@ public class PlayerControllerCameron : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown (KeyCode.LeftControl))
-        {
+        if (Input.GetKeyDown (KeyCode.LeftControl)) {
             _playerAnim.SetTrigger ("Roll");
         }
 
-        if (Input.GetKeyDown (KeyCode.F))
-        {
+        if (Input.GetKeyDown (KeyCode.F)) {
             _playerAnim.SetTrigger ("RunningSlide");
         }
 
-        if (Input.GetKeyDown (KeyCode.G))
-        {
+        if (Input.GetKeyDown (KeyCode.G)) {
             _playerAnim.SetTrigger ("JumpOver");
         }
 
-        if (Input.GetKeyDown (KeyCode.E))
-        {
+        if (Input.GetKeyDown (KeyCode.E)) {
             _playerAnim.SetTrigger ("JumpGap");
         }
+
     }
 
     // private void OnTriggerExit (Collider other)
@@ -162,17 +143,13 @@ public class PlayerControllerCameron : MonoBehaviour
     //         GetComponent<Rigidbody> ().useGravity = true;
     //     }
     // }
-    private void OnCollisionEnter (Collision other)
-    {
-        if (other.collider.CompareTag ("platform"))
-        {
+    private void OnCollisionEnter (Collision other) {
+        if (other.collider.CompareTag ("platform")) {
             transform.SetParent (other.transform);
         }
     }
-    private void OnCollisionExit (Collision other)
-    {
-        if (other.collider.CompareTag ("platform"))
-        {
+    private void OnCollisionExit (Collision other) {
+        if (other.collider.CompareTag ("platform")) {
             transform.SetParent (null);
         }
     }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Inventory : MonoBehaviour {
 
     //OBJECT UI MUST BE SET ACTIVE OR ELSE IT WILL SHOW A ERROR.
+
+    public static Inventory instance;
     [SerializeField] bool _inventoryEnabled;
     public GameObject inventory;
 
@@ -45,10 +47,12 @@ public class Inventory : MonoBehaviour {
             
             if (_inventoryEnabled)
             {
-               Cursor.lockState = CursorLockMode.None; 
+               Cursor.lockState = CursorLockMode.None;
+               PlayerControllerCameron.instance.basicAttack = false;
             }
             else{
                  Cursor.lockState = CursorLockMode.Locked; 
+                 PlayerControllerCameron.instance.basicAttack = true;
             }
             
 
