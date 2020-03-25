@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
-    //MUST BE SET ACTIVE OR ELSE IT WILL SHOW A ERROR.
+    //OBJECT UI MUST BE SET ACTIVE OR ELSE IT WILL SHOW A ERROR.
     [SerializeField] bool _inventoryEnabled;
     public GameObject inventory;
 
