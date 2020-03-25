@@ -29,19 +29,15 @@ public class Item : MonoBehaviour {
         if (!playersWeapon) {
             int allWeapons = weaponManager.transform.childCount;
             for (int i = 0; i < allWeapons; i++) {
-                Debug.Log("this is happening");
+                Debug.Log ("this is happening");
                 if (weaponManager.transform.GetChild (i).gameObject.GetComponent<Item> ().Id == Id) {
                     weapon = weaponManager.transform.GetChild (i).gameObject;
                     // weapon = transform.gameObject;
-                    Debug.Log(weapon);
+                    Debug.Log (weapon);
                 }
             }
         }
 
-        // if (this.tag == "weapon")
-        // {
-        //     weapon = this.gameObject;
-        // }
     }
 
     public void Update () {
@@ -61,16 +57,14 @@ public class Item : MonoBehaviour {
     public void ItemUsage () {
         //Weapoon
 
-        if (type == "weapon") {
-            FindWeapon();
-            weapon.SetActive (true); 
+        if (type == "weapon1") {
+            FindWeapon ();
+            weapon.SetActive (true);
             // Debug.Log(weapon);
             // Debug.Log(weapon.GetComponent<Item>());
-            weapon.GetComponent<Item>().equipped = true;
-           
+            weapon.GetComponent<Item> ().equipped = true;
+
         }
-
-
 
         //health item
 

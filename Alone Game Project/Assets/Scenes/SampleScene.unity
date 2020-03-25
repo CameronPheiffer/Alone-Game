@@ -2596,7 +2596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 1
-  type: weapon
+  type: weapon1
   description: 
   _WeaponInHand: {fileID: 2072407776}
   icon: {fileID: 0}
@@ -2712,11 +2712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a08e9be0828a224ca1d127b9f8859c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  interactionTransform: {fileID: 747062999}
-  isFocus: 0
-  player: {fileID: 0}
-  hasInteracted: 0
 --- !u!224 &786496450 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3717166243578221793, guid: d0b42ec1f06461746a97511510f076bc,
@@ -5591,7 +5586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 1
-  type: weapon
+  type: weapon1
   description: Simple axe used as a weapon or tool
   _WeaponInHand: {fileID: 0}
   icon: {fileID: 21300000, guid: 8047ba654b3d1f94bbedf11a24fac313, type: 3}
