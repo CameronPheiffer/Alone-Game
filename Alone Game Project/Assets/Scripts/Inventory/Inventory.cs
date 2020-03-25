@@ -44,17 +44,17 @@ public class Inventory : MonoBehaviour {
             _Canvas.enabled = _inventoryEnabled;
 
             Cursor.visible = _inventoryEnabled;
-            
-            if (_inventoryEnabled)
-            {
-               Cursor.lockState = CursorLockMode.None;
-               PlayerControllerCameron.instance.basicAttack = false;
+
+            if (_inventoryEnabled) {
+                Cursor.lockState = CursorLockMode.None;
+                PlayerControllerCameron.instance.basicAttack = false;
+                CamController.instance.CameraInInventory = false;
+
+            } else {
+                Cursor.lockState = CursorLockMode.Locked;
+                PlayerControllerCameron.instance.basicAttack = true;
+                CamController.instance.CameraInInventory = true;
             }
-            else{
-                 Cursor.lockState = CursorLockMode.Locked; 
-                 PlayerControllerCameron.instance.basicAttack = true;
-            }
-            
 
         }
 
