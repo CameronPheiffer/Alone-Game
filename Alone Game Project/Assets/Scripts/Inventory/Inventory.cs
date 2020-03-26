@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour {
     public static Inventory instance;
     [SerializeField] bool _inventoryEnabled;
     public GameObject inventory;
+    public GameObject popUp1;
+    public GameObject popUp2;
 
     private int allSlots;
     private int enabledSlots;
@@ -34,6 +36,7 @@ public class Inventory : MonoBehaviour {
             if (slot[i].GetComponent<Slot> ().item == null)
                 slot[i].GetComponent<Slot> ().empty = true;
         }
+   
 
     }
 
@@ -49,11 +52,15 @@ public class Inventory : MonoBehaviour {
                 Cursor.lockState = CursorLockMode.None;
                 PlayerControllerCameron.instance.basicAttack = false;
                 CamController.instance.CameraInInventory = false;
+                popUp1.SetActive(false);
+                popUp2.SetActive(true);
+            //    Destroy(popUp1);
 
             } else {
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerControllerCameron.instance.basicAttack = true;
                 CamController.instance.CameraInInventory = true;
+                popUp2.SetActive(false);
             }
 
         }
