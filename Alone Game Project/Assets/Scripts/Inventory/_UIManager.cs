@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour {
+public class _UIManager : MonoBehaviour {
 
     //OBJECT UI MUST BE SET ACTIVE OR ELSE IT WILL SHOW A ERROR.
 
-    public static Inventory instance;
+    public static _UIManager instance;
     [SerializeField] bool _inventoryEnabled;
 
     public bool _inInventory = false;
@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour {
             PauseCanvas.enabled = PauseEnabled;
 
             Cursor.visible = _inventoryEnabled;
-             Cursor.visible = PauseEnabled;
+         Cursor.visible = PauseEnabled;
 
             if (PauseEnabled) {
                 Cursor.lockState = CursorLockMode.None;
