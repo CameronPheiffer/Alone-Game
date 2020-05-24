@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour {
 
     public static Inventory instance;
     [SerializeField] bool _inventoryEnabled;
+
+    public bool _inInventory = false;
     public GameObject inventory;
     public GameObject popUp1;
     public GameObject popUp2;
@@ -20,6 +22,21 @@ public class Inventory : MonoBehaviour {
     private GameObject[] slot;
 
     public GameObject slotHolder;
+
+    // UI MANAGER _____________________________
+
+    //   public static UIManager instance;
+    [SerializeField] bool PauseEnabled;
+
+    [SerializeField] Canvas PauseCanvas;
+    [SerializeField] GameObject PauseCanvasObject;
+    public GameObject InGameHudCanvas;
+    public Transform Player;
+    public Camera ThirdPersonCam, SidePersonCamera;
+    public KeyCode TKey;
+    public bool camSwitch = false;
+
+    //END_______________________________________
 
     private void Awake () {
         _Canvas = inventory.GetComponent<Canvas> ();
@@ -36,7 +53,6 @@ public class Inventory : MonoBehaviour {
             if (slot[i].GetComponent<Slot> ().item == null)
                 slot[i].GetComponent<Slot> ().empty = true;
         }
-   
 
     }
 
@@ -49,22 +65,57 @@ public class Inventory : MonoBehaviour {
             Cursor.visible = _inventoryEnabled;
 
             if (_inventoryEnabled) {
+                InGameHudCanvas.SetActive (false);  
+                _inInventory = true;
                 Cursor.lockState = CursorLockMode.None;
                 PlayerControllerCameron.instance.basicAttack = false;
                 CamController.instance.CameraInInventory = false;
-                popUp1.SetActive(false);
-                popUp2.SetActive(true);
-            //    Destroy(popUp1);
+                popUp1.SetActive (false);
+                popUp2.SetActive (true);
+                //    Destroy(popUp1);
 
             } else {
+                InGameHudCanvas.SetActive (true);
+                _inInventory = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerControllerCameron.instance.basicAttack = true;
                 CamController.instance.CameraInInventory = true;
-                popUp2.SetActive(false);
+                popUp2.SetActive (false);
+
             }
 
         }
 
+        if (Input.GetKeyDown (KeyCode.Escape)) {
+            PauseCanvasObject.SetActive (true);
+            InGameHudCanvas.SetActive (false);
+            PauseEnabled = !PauseEnabled;
+            PauseCanvas.enabled = PauseEnabled;
+
+            Cursor.visible = _inventoryEnabled;
+             Cursor.visible = PauseEnabled;
+
+            if (PauseEnabled) {
+                Cursor.lockState = CursorLockMode.None;
+                PlayerControllerCameron.instance.basicAttack = false;
+                CamController.instance.CameraInInventory = false;
+                camSwitch = !camSwitch;
+                SidePersonCamera.gameObject.SetActive (camSwitch);
+                ThirdPersonCam.gameObject.SetActive (!camSwitch);
+
+            } else {
+                camSwitch = !camSwitch;
+                SidePersonCamera.gameObject.SetActive (camSwitch);
+                ThirdPersonCam.gameObject.SetActive (!camSwitch);
+                Cursor.lockState = CursorLockMode.Locked;
+                PlayerControllerCameron.instance.basicAttack = true;
+                CamController.instance.CameraInInventory = true;
+                PauseCanvasObject.SetActive (false);
+                InGameHudCanvas.SetActive (true);
+                Cursor.visible = false;
+
+            }
+        }
     }
 
     private void OnTriggerEnter (Collider other) {

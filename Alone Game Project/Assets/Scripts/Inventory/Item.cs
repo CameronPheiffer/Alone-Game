@@ -50,6 +50,7 @@ public class Item : MonoBehaviour {
             }
             if (equipped == false) {
                 this.gameObject.SetActive (false);
+
             }
         }
     }
