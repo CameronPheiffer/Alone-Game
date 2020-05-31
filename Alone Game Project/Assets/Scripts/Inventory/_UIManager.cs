@@ -11,6 +11,10 @@ public class _UIManager : MonoBehaviour {
 
     public bool _inInventory = false;
     public GameObject inventory;
+
+    // public GameObject deEquipBtn;
+
+    public GameObject itemPickbtn;
     public GameObject popUp1;
     public GameObject popUp2;
 
@@ -65,13 +69,13 @@ public class _UIManager : MonoBehaviour {
             Cursor.visible = _inventoryEnabled;
 
             if (_inventoryEnabled) {
-                InGameHudCanvas.SetActive (false);  
+                InGameHudCanvas.SetActive (false);
                 _inInventory = true;
                 Cursor.lockState = CursorLockMode.None;
                 PlayerControllerCameron.instance.basicAttack = false;
                 CamController.instance.CameraInInventory = false;
-                popUp1.SetActive (false);
-                popUp2.SetActive (true);
+                // popUp1.SetActive (false);
+                // popUp2.SetActive (true);
                 //    Destroy(popUp1);
 
             } else {
@@ -80,7 +84,7 @@ public class _UIManager : MonoBehaviour {
                 Cursor.lockState = CursorLockMode.Locked;
                 PlayerControllerCameron.instance.basicAttack = true;
                 CamController.instance.CameraInInventory = true;
-                popUp2.SetActive (false);
+                // popUp2.SetActive (false);
 
             }
 
@@ -93,7 +97,7 @@ public class _UIManager : MonoBehaviour {
             PauseCanvas.enabled = PauseEnabled;
 
             Cursor.visible = _inventoryEnabled;
-         Cursor.visible = PauseEnabled;
+            Cursor.visible = PauseEnabled;
 
             if (PauseEnabled) {
                 Cursor.lockState = CursorLockMode.None;
@@ -125,7 +129,19 @@ public class _UIManager : MonoBehaviour {
             Item item = itemPickedUp.GetComponent<Item> ();
 
             AddItem (itemPickedUp, item.Id, item.type, item.description, item.icon);
+
+            itemPickbtn.SetActive (true);
+            // yield return new WaitForSeconds (2);
+
+            StartCoroutine (UiPop ());
+
         }
+    }
+
+    IEnumerator UiPop () {
+        yield return new WaitForSeconds (2);
+        itemPickbtn.SetActive (false);
+        yield return null;
     }
 
     void AddItem (GameObject itemObject, int itemId, string itemtype, string itemDescription, Sprite itemIcon) {
@@ -149,5 +165,12 @@ public class _UIManager : MonoBehaviour {
             return;
         }
     }
+
+    // public IEnumerator WeaponDeEquip () {
+    //     Debug.Log("Item DeEquipped");
+    //     yield return new WaitForSeconds (2);
+    //     deEquipBtn.SetActive (false);
+    //     yield return null;
+    // }
 
 }

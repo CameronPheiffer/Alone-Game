@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
+
+    public static Item instance;
     public int Id;
     public string type;
     public string description;
@@ -46,7 +48,8 @@ public class Item : MonoBehaviour {
             // Debug.Log ("Equipped");
             if (Input.GetKeyDown (KeyCode.O)) {
                 equipped = false;
-
+                // _UIManager.instance.deEquipBtn.SetActive (true);
+                // StartCoroutine (_UIManager.instance.WeaponDeEquip ());
             }
             if (equipped == false) {
                 this.gameObject.SetActive (false);

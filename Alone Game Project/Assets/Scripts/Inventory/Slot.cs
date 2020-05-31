@@ -14,6 +14,8 @@ public class Slot : MonoBehaviour , IPointerClickHandler
     public int Id;
     public string type;
     public string description;
+
+    public GameObject itemEquippedPopup;
     
     public void OnPointerClick(PointerEventData pointerEventData){
         UseItem();
@@ -31,9 +33,17 @@ public class Slot : MonoBehaviour , IPointerClickHandler
     }
 
     public void UseItem()
-    {
+    {   
+        itemEquippedPopup.SetActive(true);
         item.GetComponent<Item>().ItemUsage();
         Debug.Log("item" + item);
     // Debug.Log("useitem" + (item.GetComponent<Item>().ItemUsage());
+    StartCoroutine (WeaponEquipped ());
+    }
+
+     IEnumerator WeaponEquipped () {
+        yield return new WaitForSeconds (2);
+        itemEquippedPopup.SetActive (false);
+        yield return null;
     }
 }
